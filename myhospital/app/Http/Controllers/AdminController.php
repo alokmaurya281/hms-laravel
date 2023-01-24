@@ -13,6 +13,8 @@ use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Image;
+
 
 class AdminController extends Controller
 {
@@ -57,7 +59,9 @@ class AdminController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            return view('admin/dashboard');
+            $lists = DB::table('appointments')->get();
+
+            return view('admin/dashboard' , ['lists'=>$lists]);
         }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
@@ -110,6 +114,8 @@ class AdminController extends Controller
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
+
+  
 
 
     public function EdituserView()
@@ -217,6 +223,20 @@ class AdminController extends Controller
                 'id_number'=>'required',
                 'profile_image'=>'required',
             ]);
+
+            $type = 2;
+
+        $randomstr= Str::random(10);
+
+        $user = User::create([
+            'name'=>$request->full_name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password),
+            'type'=>$type,
+            'mobile'=>$request->mobile,
+            'remember_token' => $randomstr,
+
+        ]);
     
             if(DB::table('doctors')->where('email',$request->email)->first()){
                 return Redirect::back()->withErrors(['message' => 'Email Exists']);
@@ -225,8 +245,12 @@ class AdminController extends Controller
             }
 
             if ($file = $request->file('profile_image')) {
+                $img=Image::make($file)->resize(150,150);
+
+                
                 $path = $file->store('files/doctors_images');
                 $name = $file->getClientOriginalName();
+
                 
      
                
@@ -247,6 +271,7 @@ class AdminController extends Controller
                 'govt_id_type'=>$request->govt_id_type,
                 'id_number'=>$request->id_number,
                 'profile_image'=>$path,
+                'professional_image'=>$path,
             ]);
             
            
@@ -273,6 +298,13 @@ class AdminController extends Controller
         $id = $request->id;
         $details = DB::table('doctors')->where('id', $id)->get();
             return view('admin/doctorfulldetail' , ['details'=>$details]);
+
+    }
+
+    public function userfulldetail(Request $request){
+        $id = $request->id;
+        $details = DB::table('users')->where('id', $id)->get();
+            return view('admin/userfulldetail' , ['details'=>$details]);
 
     }
 
@@ -441,6 +473,19 @@ class AdminController extends Controller
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
+
+    public function AppointmentList()
+    {
+        if(Auth::check()){
+            $lists = DB::table('appointments')->get();
+
+            return view('admin/appointment' , ['lists'=>$lists]);
+        }
+  
+        return redirect("admin/login")->withSuccess('You are not allowed to access');
+    }
+
+
 
 
 }

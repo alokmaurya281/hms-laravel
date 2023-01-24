@@ -76,6 +76,15 @@ class AuthController extends Controller
    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            if(Auth::user()->type==3 || Auth::user()->type==2){
+
+            
+                return redirect()->intended('dashboard')
+                        ->withSuccess('Signed in');
+                }else{
+                    return redirect("login")->withSuccess('You are not allowed');
+    
+                }
             return redirect()->intended('dashboard')
                         ->withSuccess('Signed in');
         }

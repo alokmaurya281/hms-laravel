@@ -24,7 +24,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="appointment">
+                <a class="nav-link" href="appointments">
                   <span data-feather="file"></span>
                   All Appointment's
                 </a>

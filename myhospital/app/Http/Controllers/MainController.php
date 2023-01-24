@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 {
     public function index(){
-        return view('index');
+        $doctors = DB::table('doctors')->get();
+        return view('index', ['doctors'=>$doctors]);
     }
 
     public function register(){

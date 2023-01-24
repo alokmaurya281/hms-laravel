@@ -57,7 +57,7 @@
                                     <select name="type" id="type" class="form-control" required>
                                         <option value="">Choose One</option>
                                         <option value="1">Admin</option>
-                                        <option value="2">Staff</option>
+                                        <!-- <option value="2">Doctor</option> -->
                                         <option value="3">User</option>
                                     </select>
                                 </div>

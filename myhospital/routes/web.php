@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DoctorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,12 +59,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('edit_user',[AdminController::class,'EdituserView']);
     Route::get('managedoctors',[AdminController::class,'managedoctors']);
     Route::get('appointment',[AdminController::class,'appointment']);
+    Route::get('appointments',[AdminController::class,'AppointmentList']);
     Route::get('manageservices',[AdminController::class,'manageservices']);
     // Route::get('doctorfulldetails',[AdminController::class,'doctorfulldetails']);
     Route::get('contactus',[AdminController::class,'contactus']);
     Route::post('edit_user/{id}',[AdminController::class,'Edituser']);
     Route::post('doctorfulldetail/{id}',[AdminController::class,'doctorfulldetail']);
     Route::get('doctorfulldetail',[AdminController::class,'doctorfulldetail']);
+    Route::post('userfulldetail/{id}',[AdminController::class,'userfulldetail']);
+    Route::get('userfulldetail',[AdminController::class,'userfulldetail']);
     Route::post('updateprofessionalimage/{id}',[AdminController::class, 'updateprofessionalimagedoctor']);
     Route::post('deletedoctor/{id}',[AdminController::class, 'deletedoctor']);
     Route::post('add_department',[AdminController::class, 'AddDepartment']);
@@ -79,8 +83,25 @@ Route::group(['middleware' => 'web'], function () {
  
   });
 
+
   
   });
+
+
+  Route::group(['prefix' => 'doctors'], function () {
+    
+    Route::get('/login', [DoctorsController::class, 'DoctorLoginView']);
+    Route::post('/login', [DoctorsController::class, 'DoctorLogin']);
+
+    Route::group(['middleware' => 'web'], function () {
+    
+    Route::get('dashboard',[DoctorsController::class,'dashboard']);
+    Route::get('logout',[DoctorsController::class,'logout']);
+    
+ 
+  });
+});
+
 
 
    
