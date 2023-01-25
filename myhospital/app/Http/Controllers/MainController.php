@@ -49,7 +49,10 @@ class MainController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            return view('dashboard');
+
+            $appointments = DB::table('appointments')->where('user_id', Auth::user()->id)->get();
+            
+            return view('dashboard',['appointments'=>$appointments]);
         }
   
         return redirect("login")->withSuccess('You are not allowed to access');

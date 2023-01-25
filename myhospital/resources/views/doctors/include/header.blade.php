@@ -60,19 +60,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="dashboard">
                   <span data-feather="file"></span>
                   All Appointment's
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="managedoctors.php">
+                <a class="nav-link" href="profile">
                   <span data-feather="users"></span>
                  Profile
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="manageservices.php">
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="manageservices">
                   <span data-feather="shopping-cart"></span>
                   Your Services
                 </a>
@@ -82,7 +82,7 @@
                   <span data-feather="bar-chart-2"></span>
                   Feedback
                 </a>
-              </li>
+              </li> -->
             </ul>
           </div>
     </nav>

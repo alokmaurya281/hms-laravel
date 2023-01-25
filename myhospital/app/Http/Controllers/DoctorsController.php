@@ -55,13 +55,55 @@ class DoctorsController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            $doctor_id = Auth::user()->id;
+            $doctor_email = DB::table('users')->where('id', Auth::user()->id)->value('email');
+            $doctor_id = DB::table('doctors')->where('email', $doctor_email)->value('id');
             $app_lists = DB::table('appointments')->where('doctor_id', $doctor_id)->get();
             return view('doctors/dashboard',['app_lists'=>$app_lists]);
         }
   
         return redirect("doctors/login")->withSuccess('You are not allowed to access');
     }
+
+    public function profile(Request $request){
+        $doctor_email = DB::table('users')->where('id', Auth::user()->id)->value('email');
+            $doctor_id = DB::table('doctors')->where('email', $doctor_email)->value('id');
+            $details = DB::table('doctors')->where('id', $doctor_id)->get();
+            return view('doctors/profile' , ['details'=>$details]);
+
+    }
+
+
+    
+    public function UpdateappointmentStatusForm(){
+        
+        if(Auth::check()){
+         return view('doctors/updateappointmentstatus');
+        }
+             
+ 
+     }
+ 
+ 
+     public function UpdateappointmentStatus(Request $request){
+         $id = $request->id;
+         
+ 
+         $update = DB::table('appointments')->where('id', $id)->update([
+             'status'=>$request->status,
+         ]);
+         if($update==true){
+             return redirect('doctors/dashboard')->withSuccess('details Updated');
+ 
+         }
+         else{
+             return Redirect::back()->withSuccess('Details not  Updated');
+ 
+         }
+             
+ 
+     }
+
+    
 
 
 }

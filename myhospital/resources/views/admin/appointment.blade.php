@@ -21,10 +21,13 @@
               <th>ID</th>
               <th>User/Patient ID</th>
               <th>Doctor ID</th>
-              <th>Appointment Time</th>
+              <th>Doctor Name</th>
+              <th>Patient Name</th>
+              <th>Mobile</th>
               <th>Appointment Date</th>
               <th>Payment Id</th>
-              <th>Status</th>
+              <th>Payment Status</th>
+              <th>Booking Status</th>
             </tr>
           </thead>
           <tbody>
@@ -33,10 +36,13 @@
               <td>{{$list->id}}</td>
               <td><a href="userfulldetail?id={{$list->user_id}}" title="Click To See Details">{{$list->user_id}}</a></td>
               <td><a href="doctorfulldetail?id={{$list->doctor_id}}" title="Click To See Details">{{$list->doctor_id}}</a> </td>
-              <td>{{$list->appointment_time}}</td>
+              <td>{{$list->doctor_name}}</td>
+              <td>{{$list->patient_name}}</td>
+              <td>{{$list->mobile}}</td>
               <td>{{$list->appointment_date}}</td>
               <td>{{$list->razorpay_payment_id}}</td>
-              <td>{{$list->status}}</td>
+              <td>{{$list->payment_status}}</td>
+              <td>{{$list->status}} <a href="updateappointmentstatus?id={{$list->id}}" > <button class="btn btn-sm btn-outline-success">Update Status</button> </a></td>
             </tr>
             @endforeach
           </tbody>

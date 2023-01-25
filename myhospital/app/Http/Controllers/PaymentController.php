@@ -26,17 +26,46 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
+    public function BookAppointmentForm(Request $request)
+    {    
+        if(Auth::check()){    
+            $doctors = DB::table('doctors')->where('id', $request->doctor_id)->get();
+        return view('bookappointment',['doctors'=>$doctors]);
+        }
+        return redirect()->back();
+    }
+
+
+
+
     public function BookAppointment(Request $request){
         if(Auth::check()){
+            $totalslot = DB::table('appointments')->where('doctor_id', $request->doctor_id)->where('appointment_date',$request->appointment_date)->count();
+            // $noslots = count($totalslot);
+            if($totalslot<=20){
+                $appointment = DB::table('appointments')->insertGetId([
+                    'doctor_id'=>$request->doctor_id,
+                    'user_id'=>$request->user_id,
+                    'patient_name'=>$request->patient_name,
+                    'doctor_name'=>$request->doctor_name,
+                    'department'=>$request->department,
+                    'appointment_date'=>$request->appointment_date,
+                    'mobile'=>$request->mobile,
+                    'email'=>$request->email,
+                    'gender'=>$request->gender,
+                    'prescription'=>$request->prescription,
+                    'status'=>'Pending',
+                    'payment_status'=>'Pending',
+                    
+                ]);
 
-    
-            $appointment = DB::table('appointments')->insertGetId([
-                'doctor_id'=>$request->doctor_id,
-                'user_id'=>$request->user_id,
-                'appointment_time'=>$request->appointment_time,
-                
-            ]);
-            
+            }
+            else{
+                return redirect('doctor')->withSuccess(' Appointment  booking failed Slots Full for the following date');
+
+            }
+
+
            
             if(!empty($appointment)){
                 $appointments=DB::table('appointments')->where('id', $appointment)->get();
@@ -46,7 +75,7 @@ class PaymentController extends Controller
     
             }
             else{
-                redirect('doctor')->withSuccess(' Appointment  booking failed');
+                return redirect('doctor')->withSuccess(' Appointment  booking failed');
 
             }
             
@@ -86,12 +115,13 @@ class PaymentController extends Controller
                 $appointments = DB::table('appointments')->where('id', $request->id)->update([
                     'razorpay_payment_id'=>$input['razorpay_payment_id'],
                     'amount'=>$a,
+                    'payment_status'=>'Confirmed',
                     'status'=>'Confirmed'
 
                     
                 ]);
                 // if($appointments==true){
-                    redirect('dashboard')->withSuccess('Payment successful, your appointment will be booked.');
+                   return redirect('dashboard')->withSuccess('Payment successful, your appointment will be booked.');
 
                 // }
                 // else{

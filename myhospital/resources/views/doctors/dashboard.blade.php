@@ -17,24 +17,28 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>User ID</th>
-              <th>Appointment Time</th>
+              <th>Doctor Name</th>
+              <th>Patient Name</th>
+              <th>Mobile</th>
               <th>Appointment Date</th>
-              <th>Status</th>
+              <th>Payment Id</th>
+              <th>Payment Status</th>
+              <th>Booking Status</th>
             </tr>
           </thead>
           <tbody>
             @foreach($app_lists as $list)
             <tr>
               <td>{{$list->id}}</td>
-              <td>{{$list->user_id}}</td>
-              <td>{{$list->appointment_time}}</td>
+              <td>{{$list->doctor_name}}</td>
+              <td>{{$list->patient_name}}</td>
+              <td>{{$list->mobile}}</td>
               <td>{{$list->appointment_date}}</td>
-              <td>{{$list->status}}</td>
+              <td>{{$list->razorpay_payment_id}}</td>
+              <td>{{$list->payment_status}}</td>
+              <td>{{$list->status}} <a href="updateappointmentstatus?id={{$list->id}}" > <button class="btn btn-sm btn-outline-success">Update Status</button> </a></td>
             </tr>
             @endforeach
-         
-          
           </tbody>
         </table>
       </div>

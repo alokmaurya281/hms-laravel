@@ -38,6 +38,8 @@ Route::group(['middleware' => 'web'], function () {
      Route::get('dashboard',[MainController::class,'dashboard']);
      Route::get('logout',[AuthController::class,'logout']);
      Route::post('bookappointment',[PaymentController::class,'BookAppointment']);
+     Route::post('book',[PaymentController::class,'BookAppointmentForm']);
+    //  Route::get('bookappointment',[PaymentController::class,'BookAppointmentForm']);
      Route::get('razorpay', [PaymentController::class, 'razorpay'])->name('razorpay');
     Route::post('razorpaypayment', [PaymentController::class, 'payment'])->name('payment');
   
@@ -78,6 +80,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('contactmessages',[AdminController::class,'ContactMessage']);
     Route::post('edit_doctor/{id}',[AdminController::class,'EditDoctor']);
     Route::post('deletedepartment/{id}',[AdminController::class, 'deletedepartment']);
+    Route::get('updateappointmentstatus',[AdminController::class, 'UpdateappointmentStatusForm']);
+    Route::post('updateappointmentstatus',[AdminController::class, 'UpdateappointmentStatus']);
 
     
  
@@ -97,6 +101,9 @@ Route::group(['middleware' => 'web'], function () {
     
     Route::get('dashboard',[DoctorsController::class,'dashboard']);
     Route::get('logout',[DoctorsController::class,'logout']);
+    Route::get('updateappointmentstatus',[DoctorsController::class, 'UpdateappointmentStatusForm']);
+    Route::get('profile',[DoctorsController::class, 'profile']);
+    Route::post('updateappointmentstatus',[DoctorsController::class, 'UpdateappointmentStatus']);
     
  
   });

@@ -34,14 +34,13 @@
                                     
                                     @else
                                    
-                                    <form action="bookappointment" method="post">
+                                    <form action="book" method="post">
                                         @csrf
                                         <input type="text" name="doctor_id" value="{{$doctor->id}}" hidden>
-                                        <input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
-                                        <input type="text" name="appointment_time" value="10:00 AM to 1:00 PM" hidden>
                                         <button type="submit" class="btn btn-sm btn-outline-secondary">Book
                                             Appointment</button>
                                     </form>
+                                    <!-- <a type="button" class="btn btn-secondary" href="bookappointment?doctor_id={{$doctor->id}}">Book Appointment</a> -->
 
                                     @endif
                                 </div>

@@ -386,6 +386,36 @@ class AdminController extends Controller
     }
 
 
+    public function UpdateappointmentStatusForm(){
+        
+       if(Auth::check()){
+        return view('admin/updateappointmentstatus');
+       }
+            
+
+    }
+
+
+    public function UpdateappointmentStatus(Request $request){
+        $id = $request->id;
+        
+
+        $update = DB::table('appointments')->where('id', $id)->update([
+            'status'=>$request->status,
+        ]);
+        if($update==true){
+            return redirect('admin/appointments')->withSuccess('details Updated');
+
+        }
+        else{
+            return Redirect::back()->withSuccess('Details not  Updated');
+
+        }
+            
+
+    }
+
+
     public function EditDoctor(Request $request, $id){
         if(Auth::check()){
 
