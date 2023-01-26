@@ -33,8 +33,9 @@
                         <label for="Department">Select Department</label>
                         <select name="department" id="Department" class="form-control" required>
                             <option value="">Choose One</option>
-                            <option value="1">Surgery</option>
-                            <option value="2">Ear specialty</option>
+                            @foreach($departments as $department)
+                                        <option value="{{$department->department}}">{{$department->department}}</option>
+                                        @endforeach
                         </select>
                     </div>
                     <div class="form-group">

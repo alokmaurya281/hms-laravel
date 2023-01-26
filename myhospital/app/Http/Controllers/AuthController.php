@@ -105,5 +105,45 @@ class AuthController extends Controller
   
         return Redirect('login');
     }
+
+    public function changepasswordform( ){
+        if(Auth::check()){
+            return view('changepassword');
+            
+
+        }
+        else{
+            return Redirect('login');
+
+        }
+    }
+
+    public function changepassword(Request $request){
+        if(Auth::check()){
+            $request->validate([
+                'password'=>'required|min:6|confirmed',
+                'password'=>'required',
+            ]);
+
+            $change = DB::table('users')->where('id', Auth::user()->id)->update([
+                'password'=>Hash::make($request->password),
+            ]);
+
+            if($change==true){
+                return Redirect::back()->withSuccess('Password Changed Successfully');
+            }
+            else{
+                return Redirect('login')->withSuccess('Error');
+    
+            }
+
+
+
+        }
+        else{
+            return Redirect('login');
+
+        }
+    }
    
 }

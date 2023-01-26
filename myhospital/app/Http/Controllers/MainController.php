@@ -57,4 +57,16 @@ class MainController extends Controller
   
         return redirect("login")->withSuccess('You are not allowed to access');
     }
+
+
+    public function userprofile()
+    {
+        if(Auth::check()){
+
+            
+            return view('userprofile');
+        }
+  
+        return redirect("login")->withSuccess('You are not allowed to access');
+    }
 }

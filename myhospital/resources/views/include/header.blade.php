@@ -47,6 +47,8 @@
 
           @else
           <a class="dropdown-item" href="dashboard">Dashboard</a>
+          <a class="dropdown-item" href="userprofile">User Profile</a>
+          <a class="dropdown-item" href="changepassword">Change Password</a>
           <a class="dropdown-item" href="logout">Logout</a>
           @endguest
 

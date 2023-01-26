@@ -36,9 +36,12 @@ Route::post('login',[AuthController::class, 'login']);
 Route::group(['middleware' => 'web'], function () {
     
      Route::get('dashboard',[MainController::class,'dashboard']);
+     Route::get('userprofile',[MainController::class,'userprofile']);
      Route::get('logout',[AuthController::class,'logout']);
      Route::post('bookappointment',[PaymentController::class,'BookAppointment']);
      Route::post('book',[PaymentController::class,'BookAppointmentForm']);
+     Route::get('changepassword',[AuthController::class,'changepasswordform']);
+     Route::post('changepassword',[AuthController::class,'changepassword']);
     //  Route::get('bookappointment',[PaymentController::class,'BookAppointmentForm']);
      Route::get('razorpay', [PaymentController::class, 'razorpay'])->name('razorpay');
     Route::post('razorpaypayment', [PaymentController::class, 'payment'])->name('payment');
@@ -82,6 +85,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('deletedepartment/{id}',[AdminController::class, 'deletedepartment']);
     Route::get('updateappointmentstatus',[AdminController::class, 'UpdateappointmentStatusForm']);
     Route::post('updateappointmentstatus',[AdminController::class, 'UpdateappointmentStatus']);
+    Route::get('changepassword',[AdminController::class,'changepasswordform']);
+     Route::post('changepassword',[AdminController::class,'changepassword']);
 
     
  

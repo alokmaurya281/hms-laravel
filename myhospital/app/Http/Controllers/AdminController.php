@@ -48,6 +48,47 @@ class AdminController extends Controller
     }
 
 
+    public function changepasswordform( ){
+        if(Auth::check()){
+            return view('admin/changepassword');
+            
+
+        }
+        else{
+            return Redirect('admin/login');
+
+        }
+    }
+
+    public function changepassword(Request $request){
+        if(Auth::check()){
+            $request->validate([
+                'password'=>'required|min:6|confirmed',
+                'password'=>'required',
+            ]);
+
+            $change = DB::table('users')->where('id', Auth::user()->id)->update([
+                'password'=>Hash::make($request->password),
+            ]);
+
+            if($change==true){
+                return Redirect::back()->withSuccess('Password Changed Successfully');
+            }
+            else{
+                return Redirect('admin/login')->withSuccess('Error');
+    
+            }
+
+
+
+        }
+        else{
+            return Redirect('login');
+
+        }
+    }
+
+
     public function logout() {
         Session::flush();
         Auth::logout();
@@ -138,8 +179,9 @@ class AdminController extends Controller
     public function EditDoctorView()
     {
         if(Auth::check()){
+            $departments = DB::table('departments')->get();
             
-            return view('admin/edit_doctor');
+            return view('admin/edit_doctor', ['departments'=>$departments]);
         }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');

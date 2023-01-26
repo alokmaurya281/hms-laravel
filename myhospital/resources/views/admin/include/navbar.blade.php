@@ -48,6 +48,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="changepassword">
+                  <span data-feather="user"></span>
+                  Change Password
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="contactmessages">
                   <span data-feather="bar-chart-2"></span>
                   Contact Us massages
