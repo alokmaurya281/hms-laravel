@@ -103,8 +103,9 @@ With the single-minded objective of offering simplified quality healthcare, over
 
 
                 <div class="col-md-3">
-                    <div class="card mb-4 shadow-sm h-100">
-                        <img class="card-img-top " src="../storage/{{$doctor->professional_image}}" alt="Card image cap">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top img-fluid" src="../storage/{{$doctor->professional_image}}"
+                            alt="Card image cap" style="height:400px;">
                         <div class="card-body">
                             <h3>{{$doctor->department}}</h3>
                             <p class="card-text">{{$doctor->name}}</p>
@@ -115,17 +116,16 @@ With the single-minded objective of offering simplified quality healthcare, over
                                             href="login">Login to book appointment
                                         </a>
                                     </button>
-                                    
+
                                     @else
-                                   
-                                    <form action="bookappointment" method="post">
+
+                                    <form action="book" method="post">
                                         @csrf
                                         <input type="text" name="doctor_id" value="{{$doctor->id}}" hidden>
-                                        <input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
-                                        <input type="text" name="appointment_time" value="10:00 AM to 1:00 PM" hidden>
                                         <button type="submit" class="btn btn-sm btn-outline-secondary">Book
                                             Appointment</button>
                                     </form>
+                                    <!-- <a type="button" class="btn btn-secondary" href="bookappointment?doctor_id={{$doctor->id}}">Book Appointment</a> -->
 
                                     @endif
                                 </div>

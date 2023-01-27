@@ -20,7 +20,7 @@
 
                 <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top h" src="../storage/{{$doctor->professional_image}}"
+                        <img class="card-img-top img-fluid" src="../storage/{{$doctor->professional_image}}"
                             alt="Card image cap" style="height:400px;">
                         <div class="card-body">
                             <h3>{{$doctor->department}}</h3>
