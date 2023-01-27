@@ -20,7 +20,8 @@
 
                 <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" src="../storage/{{$doctor->professional_image}}" alt="Card image cap">
+                        <img class="card-img-top h" src="../storage/{{$doctor->professional_image}}"
+                            alt="Card image cap" style="height:400px;">
                         <div class="card-body">
                             <h3>{{$doctor->department}}</h3>
                             <p class="card-text">{{$doctor->name}}</p>
@@ -31,9 +32,9 @@
                                             href="login">Login to book appointment
                                         </a>
                                     </button>
-                                    
+
                                     @else
-                                   
+
                                     <form action="book" method="post">
                                         @csrf
                                         <input type="text" name="doctor_id" value="{{$doctor->id}}" hidden>
