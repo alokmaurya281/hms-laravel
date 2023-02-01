@@ -50,18 +50,17 @@ class AdminController extends Controller
 
     public function changepasswordform( ){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             return view('admin/changepassword');
-            
+            }
 
         }
-        else{
-            return Redirect('admin/login');
-
-        }
+        return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
 
     public function changepassword(Request $request){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $request->validate([
                 'password'=>'required|min:6|confirmed',
                 'password'=>'required',
@@ -75,17 +74,15 @@ class AdminController extends Controller
                 return Redirect::back()->withSuccess('Password Changed Successfully');
             }
             else{
-                return Redirect('admin/login')->withSuccess('Error');
+                return redirect('admin/changepassword')->withSuccess('Error');
     
             }
+        }
 
 
 
         }
-        else{
-            return Redirect('login');
-
-        }
+        return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
 
 
@@ -100,10 +97,13 @@ class AdminController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
+
             $lists = DB::table('appointments')->get();
 
             return view('admin/dashboard' , ['lists'=>$lists]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -111,10 +111,12 @@ class AdminController extends Controller
     public function managedoctors()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $doctors = DB::table('doctors')->get();
             $departments = DB::table('departments')->get();
             return view('admin/managedoctors' , ['doctors'=>$doctors],['departments'=>$departments]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -122,8 +124,10 @@ class AdminController extends Controller
     public function appointment()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             return view('admin/appointment');
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -131,8 +135,10 @@ class AdminController extends Controller
     public function contactus()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             return view('admin/contactus');
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -140,9 +146,11 @@ class AdminController extends Controller
     public function manageservices()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $departments = DB::table('departments')->get();
             return view('admin/manageservices' , ['departments'=>$departments]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -150,8 +158,10 @@ class AdminController extends Controller
     public function doctorfulldetails()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             return view('admin/doctorfulldetail');
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -159,11 +169,15 @@ class AdminController extends Controller
   
 
 
-    public function EdituserView()
+    public function EdituserView(Request $request)
     {
         if(Auth::check()){
-            return view('admin/edit_users');
+            if(Auth::user()->type==1){
+                $id = $request->id;
+                $details = DB::table('users')->where('id', $id)->get();
+            return view('admin/edit_users',['details'=>$details]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -171,18 +185,24 @@ class AdminController extends Controller
     public function EditDepartmentView()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             return view('admin/edit_department');
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
-    public function EditDoctorView()
+    public function EditDoctorView(Request $request)
     {
+        $id = $request->id;
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $departments = DB::table('departments')->get();
+            $details = DB::table('doctors')->where('id', $id)->get();
             
-            return view('admin/edit_doctor', ['departments'=>$departments]);
+            return view('admin/edit_doctor', ['departments'=>$departments, 'details'=>$details]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -190,9 +210,11 @@ class AdminController extends Controller
 
     public function AllUsers(){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $users = User::all();
             return view('admin/allusers')->with('users', $users);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
         
@@ -200,6 +222,7 @@ class AdminController extends Controller
 
     public function Addnewuser(Request $request){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $request->validate([
                 'name'=>'required',
                 'email'=>'required|email',
@@ -237,6 +260,7 @@ class AdminController extends Controller
             }
             
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
         
@@ -251,6 +275,7 @@ class AdminController extends Controller
 
     public function AddDoctor(Request $request){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $request->validate([
                 'department'=>'required',
                 'full_name'=>'required',
@@ -330,6 +355,7 @@ class AdminController extends Controller
             }
             
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
         
@@ -337,9 +363,15 @@ class AdminController extends Controller
 
 
     public function doctorfulldetail(Request $request){
+        if(Auth::check()){
+            if(Auth::user()->type==1){
+
         $id = $request->id;
         $details = DB::table('doctors')->where('id', $id)->get();
             return view('admin/doctorfulldetail' , ['details'=>$details]);
+        } 
+    }
+    return redirect('admin/login')->withSuccess('You are not allowed to access.');
 
     }
 
@@ -431,8 +463,10 @@ class AdminController extends Controller
     public function UpdateappointmentStatusForm(){
         
        if(Auth::check()){
+        if(Auth::user()->type==1){
         return view('admin/updateappointmentstatus');
        }
+    } return redirect('admin/login')->withSuccess('You are not allowed to access');
             
 
     }
@@ -460,6 +494,7 @@ class AdminController extends Controller
 
     public function EditDoctor(Request $request, $id){
         if(Auth::check()){
+            if(Auth::user()->type==1){
 
             // if ($file = $request->file('profile_image')) {
             //     $path = $file->store('files/doctors_images');
@@ -471,9 +506,8 @@ class AdminController extends Controller
             $doctor = DB::table('doctors')->where('id', $id)->update([
                 'department'=>$request->department,
                 'name'=>$request->full_name,
-                'email'=>$request->email,
+                // 'email'=>$request->email,
                 'mobile'=>$request->mobile,
-                'password'=>Hash::make($request->password),
                 'gender'=>$request->gender,
                 'address'=>$request->full_address,
                 'city'=>$request->city,
@@ -495,7 +529,7 @@ class AdminController extends Controller
                 return Redirect::back()->withSuccess(' Doctor Not updated SuccessFully');
 
             }
-            
+        }
         }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
@@ -505,6 +539,7 @@ class AdminController extends Controller
 
     public function AddDepartment(Request $request){
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $request->validate([
                 'department'=>'required',
                 'date'=>'required',
@@ -530,6 +565,7 @@ class AdminController extends Controller
             }
             
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
         
@@ -539,9 +575,11 @@ class AdminController extends Controller
     public function ContactMessage()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $contacts = DB::table('contact')->get();
             return view('admin/contactus' , ['contacts'=>$contacts]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
@@ -549,10 +587,12 @@ class AdminController extends Controller
     public function AppointmentList()
     {
         if(Auth::check()){
+            if(Auth::user()->type==1){
             $lists = DB::table('appointments')->get();
 
             return view('admin/appointment' , ['lists'=>$lists]);
         }
+    }
   
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }

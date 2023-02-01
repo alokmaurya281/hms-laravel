@@ -103,7 +103,12 @@
                 <td>{{$user->email}}</td>
                 <td>{{$user->mobile}}</td>
                 <td>{{$user->type}}</td>
-                <td><a href="edit_user?id={{$user->id}}">Edit User</a></td>
+                <td>
+                    <form action="edituser" method="POST">
+                        @csrf<input type="text" value="{{$user->id}}" name="id" hidden>
+                        <input type="submit" value="edituser">
+                    </form>
+                </td>
 
             </tr>
             @endforeach

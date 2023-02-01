@@ -55,20 +55,27 @@ class DoctorsController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
+            if(Auth::user()->type==2){
             $doctor_email = DB::table('users')->where('id', Auth::user()->id)->value('email');
             $doctor_id = DB::table('doctors')->where('email', $doctor_email)->value('id');
             $app_lists = DB::table('appointments')->where('doctor_id', $doctor_id)->get();
             return view('doctors/dashboard',['app_lists'=>$app_lists]);
+            }
         }
   
         return redirect("doctors/login")->withSuccess('You are not allowed to access');
     }
 
     public function profile(Request $request){
+        if(Auth::check()){
+
+        if(Auth::user()->type==2){
         $doctor_email = DB::table('users')->where('id', Auth::user()->id)->value('email');
             $doctor_id = DB::table('doctors')->where('email', $doctor_email)->value('id');
             $details = DB::table('doctors')->where('id', $doctor_id)->get();
             return view('doctors/profile' , ['details'=>$details]);
+        }
+    }return redirect("doctors/login")->withSuccess('You are not allowed to access');
 
     }
 

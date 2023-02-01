@@ -29,7 +29,12 @@
                             <h3>Department :-<span class="text-info p-2">{{$detail->department}}</span></h3>
                             <div >
                                 <div class="text-center">
-                                    <a href="edit_doctor?id={{request()->get('id')}}"><button type="button" class="btn btn-sm btn-outline-primary">Update</button></a>
+                                <form action="editdoctor" method="POST">
+                                        @csrf
+                                        <input type="text" value="{{request()->get('id')}}" name="id" hidden>
+                                    <button  type="submit" name="update" class="btn btn-sm btn-outline-success">Update</button>
+                                </form><br>
+                                    <!-- <a href="edit_doctor?id={{request()->get('id')}}"><button type="button" class="btn btn-sm btn-outline-primary">Update</button></a> -->
                                     <form action="deletedoctor/{{request()->get('id')}}" method="POST">
                                         @csrf
                                     <button  type="submit" name="delete" class="btn btn-sm btn-outline-danger">Delete</button>

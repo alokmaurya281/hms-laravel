@@ -13,26 +13,23 @@
 @endif
                     <div class="row">
                         <!-- {{request()->get('id')}} -->
+                        @foreach($details as $detail)
                         
                         
 
                         <div class="col-md-6 form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" name="full_name" id="name" class="form-control" value="" required>
+                            <input type="text" name="full_name" id="name" class="form-control" value="{{$detail->name}}" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="mobile">Mobile</label>
-                            <input type="text" name="mobile" id="mobile" class="form-control" value="" required>
+                            <input type="text" name="mobile" id="mobile" class="form-control" value="{{$detail->mobile}}" required>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" name="email" id="email" class="form-control" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="Department">Select Department</label>
                         <select name="department" id="Department" class="form-control" required>
-                            <option value="">Choose One</option>
+                            <option value="{{$detail->department}}">{{$detail->department}}</option>
                             @foreach($departments as $department)
                                         <option value="{{$department->department}}">{{$department->department}}</option>
                                         @endforeach
@@ -41,7 +38,7 @@
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select name="gender" id="gender" class="form-control" required>
-                            <option value="">Choose One</option>
+                            <option value="{{$detail->gender}}">{{$detail->gender}}</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
@@ -50,32 +47,30 @@
                         <div class="col-md-6 form-group">
                             <label for="idtype">Select GOVT id type</label>
                             <select name="govt_id_type" id="idtype" class="form-control" required>
-                                <option value="">Choose One</option>
+                                <option value="{{$detail->govt_id_type}}">{{$detail->govt_id_type}}</option>
                                 <option value="aadhar">AAdhar</option>
                                 <option value="pancard">PanCard</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="idnum">Id number</label>
-                            <input type="text" name="id_number" id="idnum" class="form-control" required>
+                            <input type="text" name="id_number" id="idnum" value="{{$detail->id_number}}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email"> Address</label>
-                        <input type="text" name="full_address" id="email" class="form-control" value="" required>
+                        <input type="text" name="full_address" id="email" class="form-control" value="{{$detail->address}}" required>
                     </div>
                     <div class="form-group">
                         <label for="email">City</label>
-                        <input type="text" name="city" id="email" class="form-control" value="" required>
+                        <input type="text" name="city" id="email" class="form-control" value="{{$detail->city}}" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Pincode</label>
-                        <input type="number" name="pincode" id="email" class="form-control" value="" required>
+                        <input type="number" name="pincode" id="email" class="form-control" value="{{$detail->pincode}}" required>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Password</label>
-                        <input type="password" name="password" id="email" class="form-control" value="" required>
-                    </div>
+                    @endforeach
+                    
                     <!-- <div class="form-group">
                         <label for="file">Profile Image image</label>
                         <input type="file" name="profile_image" id="file" class="form-control" value="" required>

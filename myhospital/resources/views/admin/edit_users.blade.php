@@ -10,20 +10,22 @@
                     @csrf
                     <div class="row">
                     <!-- {{request()->get('id')}} -->
+                    @foreach ($details as $detail)
 
                         <div class="col-md-6 form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="" required>
+                            <input type="text" name="name" id="name" class="form-control" value="{{$detail->name}}" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="mobile">Mobile</label>
-                            <input type="text" name="mobile" id="mobile" class="form-control" value="" required>
+                            <input type="text" name="mobile" id="mobile" class="form-control" value="{{$detail->mobile}}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" name="email" id="email" class="form-control" value="" required>
+                        <input type="email" name="email" id="email" class="form-control" value="{{$detail->email}}" required>
                     </div>
+                    @endforeach
                     
                     
                     <div class="row">

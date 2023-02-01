@@ -61,7 +61,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('allusers',[AdminController::class,'AllUsers']);
     Route::post('add_users',[AdminController::class,'Addnewuser']);
     Route::post('add_doctors',[AdminController::class,'AddDoctor']);
-    Route::get('edit_user',[AdminController::class,'EdituserView']);
+    Route::post('edituser',[AdminController::class,'EdituserView']);
     Route::get('managedoctors',[AdminController::class,'managedoctors']);
     Route::get('appointment',[AdminController::class,'appointment']);
     Route::get('appointments',[AdminController::class,'AppointmentList']);
@@ -79,7 +79,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('edit_department',[AdminController::class,'EditDepartmentView']);
     Route::post('edit_department/{id}',[AdminController::class,'EditDepartment']);
-    Route::get('edit_doctor',[AdminController::class,'EditDoctorView']);
+    Route::post('editdoctor',[AdminController::class,'EditDoctorView']);
     Route::get('contactmessages',[AdminController::class,'ContactMessage']);
     Route::post('edit_doctor/{id}',[AdminController::class,'EditDoctor']);
     Route::post('deletedepartment/{id}',[AdminController::class, 'deletedepartment']);
