@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('prescription');
             $table->string('doctor_name');
             $table->string('department');
-            $table->string('payemnt_status');
+            $table->string('payment_status');
             $table->string('razorpay_payment_id');
             $table->string('status');
             $table->string('amount');
